@@ -13,4 +13,4 @@ import { UsersController } from './controllers/users/users.controller';
   providers: [
   ],
 })
-export class AppModule {}
+export class ApiGatewayModule {}
