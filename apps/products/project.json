@@ -1,7 +1,7 @@
 {
-  "name": "my-workspace",
+  "name": "products",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/my-workspace/src",
+  "sourceRoot": "apps/products/src",
   "projectType": "application",
   "tags": [],
   "targets": {
@@ -23,15 +23,15 @@
       "defaultConfiguration": "development",
       "dependsOn": ["build"],
       "options": {
-        "buildTarget": "my-workspace:build",
+        "buildTarget": "products:build",
         "runBuildTargetDependencies": false
       },
       "configurations": {
         "development": {
-          "buildTarget": "my-workspace:build:development"
+          "buildTarget": "products:build:development"
         },
         "production": {
-          "buildTarget": "my-workspace:build:production"
+          "buildTarget": "products:build:production"
         }
       }
     }
