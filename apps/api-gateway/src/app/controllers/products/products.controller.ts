@@ -7,13 +7,19 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { RMQService } from 'nestjs-rmq';
+import { SuccessResponseDto } from '../../dtos/common/common.dto';
+import { ProductDto } from '../../dtos/products/products.dto';
 
 @ApiTags('Products')
 @Controller('/products')
 export class ProductsController {
+  constructor(
+		private readonly rmqService: RMQService
+	) {}
 
   @ApiOperation({ summary: 'get all products' })
-  @ApiOkResponse({ description: 'products', type: [] })
+  @ApiOkResponse({ description: 'products', type: [ProductDto] })
   @HttpCode(200)
   @Get('/all')
   async getProducts() {     
@@ -21,7 +27,7 @@ export class ProductsController {
   }
 
   @ApiOperation({ summary: 'get all products by user id' })
-  @ApiOkResponse({ description: 'products', type: [] })
+  @ApiOkResponse({ description: 'products', type: ProductDto })
   @HttpCode(200)
   @Get('all/by-user')
   async getProductsByUserId() {
@@ -29,7 +35,7 @@ export class ProductsController {
   }
 
   @ApiOperation({ summary: 'get all products by category id' })
-  @ApiOkResponse({ description: 'products', type: [] })
+  @ApiOkResponse({ description: 'products', type: ProductDto })
   @HttpCode(200)
   @Get('all/by-category')
   async getProductsByCategoryId() {
@@ -37,7 +43,7 @@ export class ProductsController {
   }
 
   @ApiOperation({ summary: 'get product by id' })
-  @ApiOkResponse({ description: 'product', type: [] })
+  @ApiOkResponse({ description: 'product', type: ProductDto })
   @HttpCode(200)
   @Get()
   async getProductById() {
@@ -45,7 +51,7 @@ export class ProductsController {
   }
 
   @ApiOperation({ summary: 'create product' })
-  @ApiOkResponse({ description: 'product', type: [] })
+  @ApiOkResponse({ description: 'product', type: ProductDto })
   @HttpCode(201)
   @Post()
   async createProduct() {
@@ -53,16 +59,15 @@ export class ProductsController {
   }
 
   @ApiOperation({ summary: 'update product' })
-  @ApiOkResponse({ description: 'product', type: [] })
+  @ApiOkResponse({ description: 'product', type: ProductDto })
   @HttpCode(200)
   @Patch()
   async updateProduct() {
     return null
-
   }
 
   @ApiOperation({ summary: 'delete product' })
-  @ApiOkResponse({ description: 'boolean', type: [] })
+  @ApiOkResponse({ description: 'boolean', type: [SuccessResponseDto] })
   @HttpCode(200)
   @Delete()
   async deleteProduct() {

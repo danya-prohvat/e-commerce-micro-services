@@ -1,6 +1,8 @@
 import { Controller, HttpCode, Post } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { RMQService } from 'nestjs-rmq';
+import { SuccessResponseDto } from '../../dtos/common/common.dto';
+import { ResponseLoginDto, ResponseTokensDto } from '../../dtos/auth/auth.dto';
  
 // import { AuthLoginRequestContract, AuthLoginResponseContract, AuthLoginContractName } from '../../../../../../libs/contracts/dtos/auth/auth.login';
 
@@ -12,7 +14,7 @@ export class AuthController {
 	) {}
 
   @ApiOperation({ summary: 'login' })
-  @ApiOkResponse({ description: 'tokens', type: [] })
+  @ApiOkResponse({ description: 'tokens', type: ResponseLoginDto })
   @HttpCode(200)
   @Post('/login')
   async login() {
@@ -25,7 +27,7 @@ export class AuthController {
   }
 
   @ApiOperation({ summary: 'logout' })
-  @ApiOkResponse({ description: 'boolean', type: [] })
+  @ApiOkResponse({ description: 'boolean', type: SuccessResponseDto })
   @HttpCode(200)
   @Post('/logout')
   async logout() {
@@ -34,7 +36,7 @@ export class AuthController {
   }
 
   @ApiOperation({ summary: 'refresh token' })
-  @ApiOkResponse({ description: 'tokens', type: [] })
+  @ApiOkResponse({ description: 'tokens', type: ResponseTokensDto })
   @HttpCode(200)
   @Post('/refresh_token')
   async refreshToken() {
@@ -43,7 +45,7 @@ export class AuthController {
   }
 
   @ApiOperation({ summary: 'signup' })
-  @ApiOkResponse({ description: 'boolean', type: [] })
+  @ApiOkResponse({ description: 'boolean', type: SuccessResponseDto })
   @HttpCode(200)
   @Post('/signup')
   async signup() {
