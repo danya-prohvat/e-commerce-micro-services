@@ -1,11 +1,13 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@typescript-eslint", "prettier"],
+  "plugins": ["@typescript-eslint"
+  // "prettier"
+],
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:@typescript-eslint/recommended"
+    // "plugin:prettier/recommended"
   ],
   "overrides": [
     {
@@ -15,7 +17,7 @@
         "project": ["tsconfig.*?.json"]
       },
       "rules": {
-        "prettier/prettier": "error"
+        // "prettier/prettier": "error"
       }
     }
   ]

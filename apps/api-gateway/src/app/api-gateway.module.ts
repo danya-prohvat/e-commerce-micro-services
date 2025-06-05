@@ -3,9 +3,13 @@ import { CategoriesController } from './controllers/products/categories.controll
 import { ProductsController } from './controllers/products/products.controller';
 import { AuthController } from './controllers/auth/auth.controller';
 import { UsersController } from './controllers/users/users.controller';
+import { RMQModule } from 'nestjs-rmq';
+import { getRMQConfig } from './configs/rmq.config';
 
 @Module({
-  imports: [],
+  imports: [
+    RMQModule.forRoot(getRMQConfig()),
+  ],
   controllers: [CategoriesController,
     ProductsController,
     UsersController,

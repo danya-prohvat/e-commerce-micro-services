@@ -1,5 +1,5 @@
 import { Controller, Get, HttpCode, Patch, Post } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 
 @ApiTags('Users')
@@ -7,6 +7,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 export class UsersController {
 
   @ApiOperation({ summary: 'get user by id' })
+  @ApiOkResponse({ description: 'user', type: [] })
   @HttpCode(200)
   @Get()
   async getUserById() {
@@ -14,6 +15,7 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: 'create user' })
+  @ApiOkResponse({ description: 'user', type: [] })
   @HttpCode(201)
   @Post()
   async createUser() {
@@ -21,6 +23,7 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: 'update user' })
+  @ApiOkResponse({ description: 'user', type: [] })
   @HttpCode(200)
   @Patch()
   async updateUser() {

@@ -6,13 +6,14 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Products')
 @Controller('/products')
 export class ProductsController {
 
   @ApiOperation({ summary: 'get all products' })
+  @ApiOkResponse({ description: 'products', type: [] })
   @HttpCode(200)
   @Get('/all')
   async getProducts() {     
@@ -20,6 +21,7 @@ export class ProductsController {
   }
 
   @ApiOperation({ summary: 'get all products by user id' })
+  @ApiOkResponse({ description: 'products', type: [] })
   @HttpCode(200)
   @Get('all/by-user')
   async getProductsByUserId() {
@@ -27,6 +29,7 @@ export class ProductsController {
   }
 
   @ApiOperation({ summary: 'get all products by category id' })
+  @ApiOkResponse({ description: 'products', type: [] })
   @HttpCode(200)
   @Get('all/by-category')
   async getProductsByCategoryId() {
@@ -34,6 +37,7 @@ export class ProductsController {
   }
 
   @ApiOperation({ summary: 'get product by id' })
+  @ApiOkResponse({ description: 'product', type: [] })
   @HttpCode(200)
   @Get()
   async getProductById() {
@@ -41,6 +45,7 @@ export class ProductsController {
   }
 
   @ApiOperation({ summary: 'create product' })
+  @ApiOkResponse({ description: 'product', type: [] })
   @HttpCode(201)
   @Post()
   async createProduct() {
@@ -48,6 +53,7 @@ export class ProductsController {
   }
 
   @ApiOperation({ summary: 'update product' })
+  @ApiOkResponse({ description: 'product', type: [] })
   @HttpCode(200)
   @Patch()
   async updateProduct() {
@@ -56,6 +62,7 @@ export class ProductsController {
   }
 
   @ApiOperation({ summary: 'delete product' })
+  @ApiOkResponse({ description: 'boolean', type: [] })
   @HttpCode(200)
   @Delete()
   async deleteProduct() {

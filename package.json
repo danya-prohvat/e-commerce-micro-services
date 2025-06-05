@@ -12,6 +12,7 @@
     "@nestjs/platform-express": "^10.0.2",
     "@nestjs/swagger": "^7.1.13",
     "axios": "^1.6.0",
+    "nestjs-rmq": "^2.14.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "swagger-ui-express": "^5.0.1"
