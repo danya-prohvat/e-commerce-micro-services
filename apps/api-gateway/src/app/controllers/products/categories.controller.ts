@@ -5,11 +5,15 @@ import {
   HttpCode,
   Patch,
   Post,
+  Query,
+  Body,
 } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { RMQService } from 'nestjs-rmq';
-import { SuccessResponseDto } from '../../dtos/common/common.dto';
-import { CategoryDto } from '../../dtos/products/categories.dto';
+import { ResponseCategoryDto } from '../../dtos/products/categories.response.dto';
+import { ResponseSuccessDto } from '../../dtos/common/common.response.dto';
+import { RequestPaginationQueryDto } from '../../dtos/common/common.request.dto';
+import { RequestCategoryDto } from '../../dtos/products/categories.request.dto';
 
 @ApiTags('Categories')
 @Controller('/categories')
@@ -19,10 +23,10 @@ export class CategoriesController {
 	) {}
 
   @ApiOperation({ summary: 'get all categories' })
-  @ApiOkResponse({ description: 'categories', type: [CategoryDto] })
+  @ApiOkResponse({ description: 'categories', type: [ResponseCategoryDto] })
   @HttpCode(200)
   @Get('/all')
-  async getCategories() {
+  async getCategories(@Query() paginationQuery: RequestPaginationQueryDto) {
     return null
   }
 
@@ -35,34 +39,34 @@ export class CategoriesController {
   }
 
   @ApiOperation({ summary: 'get category by id' })
-  @ApiOkResponse({ description: 'category', type: CategoryDto })
+  @ApiOkResponse({ description: 'category', type: ResponseCategoryDto })
   @HttpCode(200)
   @Get()
-  async getCategoryById() {
+  async getCategoryById(@Query('id') id: string) {
     return null
   }
 
   @ApiOperation({ summary: 'create category' })
-  @ApiOkResponse({ description: 'category', type: CategoryDto })
+  @ApiOkResponse({ description: 'category', type: ResponseCategoryDto })
   @HttpCode(201)
   @Post()
-  async createCategory() {
+  async createCategory(@Body() dto: RequestCategoryDto) {
     return null
   }
 
   @ApiOperation({ summary: 'update category' })
-  @ApiOkResponse({ description: 'category', type: CategoryDto })
+  @ApiOkResponse({ description: 'category', type: ResponseCategoryDto })
   @HttpCode(200)
   @Patch()
-  async updateCategory() {
+  async updateCategory(@Query('id') id: string, @Body() dto: RequestCategoryDto) {
     return null
   }
 
   @ApiOperation({ summary: 'delete category' })
-  @ApiOkResponse({ description: 'boolean', type: [SuccessResponseDto] })
+  @ApiOkResponse({ description: 'boolean', type: ResponseSuccessDto })
   @HttpCode(200)
   @Delete()
-  async deleteCategory() {
+  async deleteCategory(@Query('id') id: string) {
     return null
   }
 }

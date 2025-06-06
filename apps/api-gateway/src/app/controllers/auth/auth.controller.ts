@@ -1,10 +1,13 @@
-import { Controller, HttpCode, Post } from '@nestjs/common';
+import { Controller, Headers, HttpCode, Post, Body } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { RMQService } from 'nestjs-rmq';
-import { SuccessResponseDto } from '../../dtos/common/common.dto';
-import { ResponseLoginDto, ResponseTokensDto } from '../../dtos/auth/auth.dto';
- 
-// import { AuthLoginRequestContract, AuthLoginResponseContract, AuthLoginContractName } from '../../../../../../libs/contracts/dtos/auth/auth.login';
+import { ResponseLoginDto, ResponseTokensDto } from '../../dtos/auth/auth.response.dto';
+import { RequestLoginDto, RequestRefreshTokenDto, SignupDto } from '../../dtos/auth/auth.request.dto';
+import { ResponseSuccessDto } from '../../dtos/common/common.response.dto';
+import { AuthLoginRequestContract, AuthLoginResponseContract, AuthLoginContractName } from './../../../../../../libs/contracts/src/lib/auth/login.command';
+import { AuthSignupRequestContract, AuthSignupResponseContract, AuthSignupContractName } from './../../../../../../libs/contracts/src/lib/auth/signup.command';
+import { AuthRefreshTokenRequestContract, AuthRefreshTokenResponseContract, AuthRefreshTokenContractName } from './../../../../../../libs/contracts/src/lib/auth/refresh-token.command';
+import { AuthLogoutRequestContract, AuthLogoutResponseContract, AuthLogoutContractName } from './../../../../../../libs/contracts/src/lib/auth/logout.command';
 
 @ApiTags('Auth')
 @Controller('/auth')
@@ -17,39 +20,31 @@ export class AuthController {
   @ApiOkResponse({ description: 'tokens', type: ResponseLoginDto })
   @HttpCode(200)
   @Post('/login')
-  async login() {
-    // return await this.rmqService.send<AuthLoginRequestContract, AuthLoginResponseContract>(AuthLoginContractName, {
-    //   email: 'test@test.com',
-    //   password: '123456'
-    // });
-
-    return null
+  async login(@Body() dto: RequestLoginDto) {
+    return await this.rmqService.send<AuthLoginRequestContract, AuthLoginResponseContract>(AuthLoginContractName, dto);
   }
 
   @ApiOperation({ summary: 'logout' })
-  @ApiOkResponse({ description: 'boolean', type: SuccessResponseDto })
+  @ApiOkResponse({ description: 'boolean', type: ResponseSuccessDto })
   @HttpCode(200)
   @Post('/logout')
-  async logout() {
-    // return await this.rmqService.send<AccountRegister.Request, AccountRegister.Response>(AccountRegister.topic, dto, { headers: { requestId: 'adad' } });
-    return null
+  async logout(@Headers() token: string) {
+    return await this.rmqService.send<AuthLogoutRequestContract, AuthLogoutResponseContract>(AuthLogoutContractName, { token });
   }
 
   @ApiOperation({ summary: 'refresh token' })
   @ApiOkResponse({ description: 'tokens', type: ResponseTokensDto })
   @HttpCode(200)
   @Post('/refresh_token')
-  async refreshToken() {
-    // return await this.rmqService.send<AccountRegister.Request, AccountRegister.Response>(AccountRegister.topic, dto, { headers: { requestId: 'adad' } });
-    return null
+  async refreshToken(@Body() dto: RequestRefreshTokenDto) {
+    return await this.rmqService.send<AuthRefreshTokenRequestContract, AuthRefreshTokenResponseContract>(AuthRefreshTokenContractName, dto);
   }
 
   @ApiOperation({ summary: 'signup' })
-  @ApiOkResponse({ description: 'boolean', type: SuccessResponseDto })
+  @ApiOkResponse({ description: 'boolean', type: ResponseSuccessDto })
   @HttpCode(200)
   @Post('/signup')
-  async signup() {
-    // return await this.rmqService.send<AccountRegister.Request, AccountRegister.Response>(AccountRegister.topic, dto, { headers: { requestId: 'adad' } });
-    return null
+  async signup(@Body() dto: SignupDto) {
+    return await this.rmqService.send<AuthSignupRequestContract, AuthSignupResponseContract>(AuthSignupContractName, dto);
   }
 }

@@ -18,6 +18,7 @@
       },
       "rules": {
         // "prettier/prettier": "error"
+        "@nx/enforce-module-boundaries": "off"
       }
     }
   ]

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ProductDto {
+export class ResponseProductDto {
   @ApiProperty({ example: 'iPhone 14', description: 'Title' })
   title: string;
 
