@@ -4,10 +4,10 @@ import { RMQService } from 'nestjs-rmq';
 import { ResponseLoginDto, ResponseTokensDto } from '../../dtos/auth/auth.response.dto';
 import { RequestLoginDto, RequestRefreshTokenDto, SignupDto } from '../../dtos/auth/auth.request.dto';
 import { ResponseSuccessDto } from '../../dtos/common/common.response.dto';
-import { AuthLoginRequestContract, AuthLoginResponseContract, AuthLoginContractName } from './../../../../../../libs/contracts/src/lib/auth/login.command';
-import { AuthSignupRequestContract, AuthSignupResponseContract, AuthSignupContractName } from './../../../../../../libs/contracts/src/lib/auth/signup.command';
-import { AuthRefreshTokenRequestContract, AuthRefreshTokenResponseContract, AuthRefreshTokenContractName } from './../../../../../../libs/contracts/src/lib/auth/refresh-token.command';
-import { AuthLogoutRequestContract, AuthLogoutResponseContract, AuthLogoutContractName } from './../../../../../../libs/contracts/src/lib/auth/logout.command';
+import { AuthLoginRequestContract, AuthLoginResponseContract, AuthLoginContractName } from '@contracts/auth/login.command';
+import { AuthSignupRequestContract, AuthSignupResponseContract, AuthSignupContractName } from '@contracts/auth/signup.command';
+import { AuthRefreshTokenRequestContract, AuthRefreshTokenResponseContract, AuthRefreshTokenContractName } from '@contracts/auth/refresh-token.command';
+import { AuthLogoutRequestContract, AuthLogoutResponseContract, AuthLogoutContractName } from '@contracts/auth/logout.command';
 
 @ApiTags('Auth')
 @Controller('/auth')
