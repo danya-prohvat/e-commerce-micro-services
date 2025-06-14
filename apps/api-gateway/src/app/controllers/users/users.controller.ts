@@ -3,6 +3,7 @@ import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { RMQService } from 'nestjs-rmq';
 import { ResponseUserDto } from '../../dtos/users/users.response.dto';
 import { RequestUserDto } from '../../dtos/users/users.request.dto';
+import { GetUserByIdRequestContract, GetUserByIdResponseContract, GetUserByIdContractName, UpdateUserRequestContract, CreateUserRequestContract, UpdateUserResponseContract, CreateUserResponseContract, UpdateUserContractName, CreateUserContractName } from '@contracts/users';
 
 @ApiTags('Users')
 @Controller('/users')
@@ -16,7 +17,8 @@ export class UsersController {
   @HttpCode(200)
   @Get()
   async getUserById(@Query('id') id: string) {
-    return null
+    return await this.rmqService.send<GetUserByIdRequestContract, GetUserByIdResponseContract>(GetUserByIdContractName, { id });
+    
   }
 
   @ApiOperation({ summary: 'create user' })
@@ -24,7 +26,7 @@ export class UsersController {
   @HttpCode(201)
   @Post()
   async createUser(@Body() dto: RequestUserDto) {
-    return null
+    return await this.rmqService.send<CreateUserRequestContract, CreateUserResponseContract>(CreateUserContractName, dto);
   }
 
   @ApiOperation({ summary: 'update user' })
@@ -32,6 +34,6 @@ export class UsersController {
   @HttpCode(200)
   @Patch()
   async updateUser(@Query('id') id: string, @Body() dto: RequestUserDto) {
-    return null
+    return await this.rmqService.send<UpdateUserRequestContract, UpdateUserResponseContract>(UpdateUserContractName, dto);
   }
 }

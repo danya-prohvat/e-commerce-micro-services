@@ -14,6 +14,7 @@ import { ResponseProductDto } from '../../dtos/products/products.response.dto';
 import { ResponseSuccessDto } from '../../dtos/common/common.response.dto';
 import { RequestPaginationQueryDto } from '../../dtos/common/common.request.dto';
 import { RequestProductDto } from '../../dtos/products/products.request.dtp';
+import { DeleteProductRequestContract, DeleteProductResponseContract, DeleteProductContractName, UpdateProductRequestContract, UpdateProductResponseContract, UpdateProductContractName, CreateProductRequestContract, CreateProductResponseContract, CreateProductContractName, GetProductByCategoryIdContractName, GetProductByCategoryIdResponseContract, GetProductByCategoryIdRequestContract, GetProductByUserIdRequestContract, GetProductByUserIdContractName, GetProductByUserIdResponseContract, GetProductsResponseContract, GetProductsContractName, GetProductsRequestContract, GetProductByIdContractName, GetProductByIdResponseContract, GetProductByIdRequestContract } from '@contracts/products';
 
 @ApiTags('Products')
 @Controller('/products')
@@ -27,7 +28,7 @@ export class ProductsController {
   @HttpCode(200)
   @Get('/all')
   async getProducts(@Query() paginationQuery: RequestPaginationQueryDto) {     
-    return null
+    return await this.rmqService.send<GetProductsRequestContract, GetProductsResponseContract>(GetProductsContractName, {});
   }
 
   @ApiOperation({ summary: 'get all products by user id' })
@@ -35,7 +36,7 @@ export class ProductsController {
   @HttpCode(200)
   @Get('all/by-user')
   async getProductsByUserId( @Query('id') userId: string, @Query() paginationQuery: RequestPaginationQueryDto) {
-    return null
+    return await this.rmqService.send<GetProductByUserIdRequestContract, GetProductByUserIdResponseContract>(GetProductByUserIdContractName, { userId });
   }
 
   @ApiOperation({ summary: 'get all products by category id' })
@@ -43,7 +44,7 @@ export class ProductsController {
   @HttpCode(200)
   @Get('all/by-category')
   async getProductsByCategoryId( @Query('id') categoryId: string, @Query() paginationQuery: RequestPaginationQueryDto) {
-    return null
+    return await this.rmqService.send<GetProductByCategoryIdRequestContract, GetProductByCategoryIdResponseContract>(GetProductByCategoryIdContractName, { categoryId });
   }
 
   @ApiOperation({ summary: 'get product by id' })
@@ -51,7 +52,7 @@ export class ProductsController {
   @HttpCode(200)
   @Get()
   async getProductById(@Query('id') id: string) {
-    return null
+    return await this.rmqService.send<GetProductByIdRequestContract, GetProductByIdResponseContract>(GetProductByIdContractName, { id });
   }
 
   @ApiOperation({ summary: 'create product' })
@@ -59,7 +60,7 @@ export class ProductsController {
   @HttpCode(201)
   @Post()
   async createProduct(@Body() dto: RequestProductDto) {
-    return null
+    return await this.rmqService.send<CreateProductRequestContract, CreateProductResponseContract>(CreateProductContractName, dto);
   }
 
   @ApiOperation({ summary: 'update product' })
@@ -67,7 +68,7 @@ export class ProductsController {
   @HttpCode(200)
   @Patch()
   async updateProduct(@Query('id') id: string, @Body() dto: RequestProductDto) {
-    return null
+    return await this.rmqService.send<UpdateProductRequestContract, UpdateProductResponseContract>(UpdateProductContractName, { id, ...dto });
   }
 
   @ApiOperation({ summary: 'delete product' })
@@ -75,6 +76,6 @@ export class ProductsController {
   @HttpCode(200)
   @Delete()
   async deleteProduct(@Query('id') id: string) {
-    return null
+    return await this.rmqService.send<DeleteProductRequestContract, DeleteProductResponseContract>(DeleteProductContractName, { id });
   }
 }
